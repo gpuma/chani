@@ -1,14 +1,17 @@
 import pymongo
+from PriceItem import PriceItem
 
 connection = pymongo.MongoClient("mongodb://localhost")
+db = connection.chani
+#todo: might need to refactor the name of this collection
+items=db.items
 
-#def get_items():
+def get_items():
+    """returns all documents in 'items' collection
+    as a list pf PriceItem objects"""
+    return [PriceItem.from_document(doc)  for doc in items.find({})]
 
 def insert_item(item):
-    db = connection.chani
-    #todo: might need to refactor the name of this collection
-    items=db.items
-
     try:
         items.insert_one(item.to_document())
         return 0

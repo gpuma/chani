@@ -1,4 +1,4 @@
-from bottle import route, run, static_file, template, get, post, request
+from bottle import route, run, static_file, template, get, post, request, redirect
 
 import db
 #todo: maybe put this inside the function uses it
@@ -28,10 +28,12 @@ def new_item():
         return "formato incorrecto (regex)!"
     if db.insert_item(item) != 0:
         return "error insertando!"
-    return "éxito papá!";
+    redirect("/items");
 
-#@get('/items')
-#def show_items():
+@get('/items')
+def show_items():
+    #todo: make it more readable?
+    return template('items.tpl', {'items' : db.get_items() })
 
 
 def process_item_exp(item_exp):

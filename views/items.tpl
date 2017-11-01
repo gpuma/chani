@@ -12,13 +12,14 @@
   </tr>
   % for i in items:
     <tr>
-      <td>i.name</td>
-      <td>i.quantity</td>
-      <td>i.unit</td>
-      <td>i.price</td>
-      <td>i.currency</td>
-      <td>i.place</td>
-      <td>i.date</td>
+      <td>{{i.name}}</td>
+      <td>{{i.quantity}}</td>
+      <td>{{i.unit}}</td>
+      <td>{{i.price}}</td>
+      <td>{{i.currency}}</td>
+      <td>{{i.place}}</td>
+      <td>{{i.date}}</td>
     </tr>
   % end
 </table>
+<a href="/">Regresar</a>

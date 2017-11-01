@@ -20,8 +20,8 @@ class PriceItem(object):
         )
 
     @classmethod
-    def from_document(doc):
-        return PriceItem(
+    def from_document(cls, doc):
+        return cls(
             name=doc['name'],
             unit=doc['unit'],
             quantity=doc['quantity'],
