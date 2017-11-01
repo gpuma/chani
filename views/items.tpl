@@ -1,5 +1,7 @@
-% rebase('base.tpl', title='Todos los items')
+<!--todo: refactor title; it's confusing-->
+% rebase('base.tpl', title='Chani - '+title)
 
+<h2>{{get('q',title)}}</h2>
 <table>
   <tr>
     <th>name</th>

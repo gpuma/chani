@@ -1,4 +1,4 @@
-from bottle import route, run, static_file, template, get, post, request, redirect
+from bottle import route, run, static_file, template, get, post, request, redirect, response
 
 import db
 #todo: maybe put this inside the function uses it
@@ -21,11 +21,14 @@ def home():
 def new_item():
     #we use request.params instead of request.forms.get so
     #parameters are automatically converted to unicode strings
+
+    #todo: refactor the name of this variable
     newItemExp=request.params.newItemExp
     item = process_item_exp(newItemExp)
-    #when our regex didn't match
+    #when our regex doesn't match we'll assume the user
+    #wanted to search instead of entering a new item
     if item is None:
-        return "formato incorrecto (regex)!"
+        redirect("/items/"+newItemExp)
     if db.insert_item(item) != 0:
         return "error insertando!"
     redirect("/items");
@@ -33,8 +36,14 @@ def new_item():
 @get('/items')
 def show_items():
     #todo: make it more readable?
-    return template('items.tpl', {'items' : db.get_items() })
+    return template('items.tpl', {'items' : db.get_items(), 'title': 'Todos' })
 
+@get('/items/<q>')
+def search_items(q):
+    #for some reasone naming 'q' 'query' throws an error
+    #response.content_type="Content-Type: text/html; charset=UTF-8"
+    #q=request.query.q
+    return template('items.tpl', {'items' : db.get_items(q), 'title':'Búsqueda','q': q})
 
 def process_item_exp(item_exp):
     """Extrae los componentes de una cadena 'item_exp'
@@ -42,7 +51,7 @@ def process_item_exp(item_exp):
     1kg de palta a 12 soles en centro
     250g de chia a 3 soles en ceylan"""
 
-    pattern='(\d+\.*\d*)(\w+)\s+de\s+(\w+)\s+a\s+(\d+\.*\d*)\s+(\w+)\s+en\s+(.+)'
+    pattern='(\d+\.*\d*)\s*(.+)\s+de\s+(\w+)\s+a\s+(\d+\.*\d*)\s+(\w+)\s+en\s+(.+)'
     #re.UNICODE supports accented characters (eg. café)
     m=re.search(pattern, item_exp.strip(), re.UNICODE)
     if m is None:
