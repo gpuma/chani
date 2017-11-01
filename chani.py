@@ -19,20 +19,32 @@ def home():
 # when we enter a new item (insert)
 @post('/item/new')
 def new_item():
-    newItemExp=request.forms.get('newItemExp')
+    #we use request.params instead of request.forms.get so
+    #parameters are automatically converted to unicode strings
+    newItemExp=request.params.newItemExp
     item = process_item_exp(newItemExp)
+    #when our regex didn't match
+    if item is None:
+        return "formato incorrecto (regex)!"
     if db.insert_item(item) != 0:
         return "error insertando!"
     return "éxito papá!";
 
+#@get('/items')
+#def show_items():
+
+
 def process_item_exp(item_exp):
     """Extrae los componentes de una cadena 'item_exp'
     con el siguiente formato y retorna un objeto PriceItem:
-    1kg de palta a 12 soles, centro
-    250g de chia a 3 soles, ceylan"""
+    1kg de palta a 12 soles en centro
+    250g de chia a 3 soles en ceylan"""
 
-    pattern='(\d+\.*\d*)(\w+)\s+de\s+(\w+)\s+a\s+(\d+\.*\d*)\s+(\w+)\s*,\s*(.+)'
-    m=re.search(pattern, item_exp.strip())
+    pattern='(\d+\.*\d*)(\w+)\s+de\s+(\w+)\s+a\s+(\d+\.*\d*)\s+(\w+)\s+en\s+(.+)'
+    #re.UNICODE supports accented characters (eg. café)
+    m=re.search(pattern, item_exp.strip(), re.UNICODE)
+    if m is None:
+        return None
     #usamos datetime.datetime en vez de datetime.date porque pymongo
     #soloi soporta la codificación directa del primer tipo
     item=PriceItem(m.group(3),m.group(2),m.group(1),m.group(4),m.group(5),m.group(6),datetime.datetime.today())

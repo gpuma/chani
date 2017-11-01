@@ -1,4 +1,4 @@
-% rebase('base.tpl', title='Page Title')
+% rebase('base.tpl', title='Chani')
 <form action="/item/new" method="post">
   <h2>Nuevo producto</h2>
   <input type="text" name="newItemExp" />

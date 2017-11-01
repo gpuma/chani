@@ -1,9 +1,32 @@
 class PriceItem(object):
-  def __init__(self, name, unit, quantity, price, currency, place, date):
-    self.name=name
-    self.unit=unit
-    self.quantity=quantity
-    self.price=price
-    self.currency=currency
-    self.place=place
-    self.date=date
+    def __init__(self, name, unit, quantity, price, currency, place, date):
+        self.name=name
+        self.unit=unit
+        self.quantity=quantity
+        self.price=price
+        self.currency=currency
+        self.place=place
+        self.date=date
+
+    def to_document(self):
+        return dict(
+            name=self.name,
+            unit=self.unit,
+            quantity=self.quantity,
+            price=self.price,
+            currency=self.currency,
+            place=self.place,
+            date=self.date
+        )
+
+    @classmethod
+    def from_document(doc):
+        return PriceItem(
+            name=doc['name'],
+            unit=doc['unit'],
+            quantity=doc['quantity'],
+            price=doc['price'],
+            currency=doc['currency'],
+            place=doc['place'],
+            date=doc['date']
+        )
