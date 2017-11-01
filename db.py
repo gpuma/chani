@@ -21,5 +21,6 @@ def insert_item(item):
         items.insert_one(new_item)
         return 0
     except Exception as e:
+        #todo: remove raise
         raise(e)
         return -1

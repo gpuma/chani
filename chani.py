@@ -4,8 +4,8 @@ import db
 #todo: maybe put this inside the function uses it
 import re
 import datetime
-from PriceItem import PriceItem
 
+from PriceItem import PriceItem
 
 view_folder='views'
 
@@ -31,8 +31,8 @@ def process_item_exp(item_exp):
     1kg de palta a 12 soles, centro
     250g de chia a 3 soles, ceylan"""
 
-    pattern='(\d+)(\w+)\s+de\s+(\w+)\s+a\s+(\d+)\s+(\w+)\s*,\s*(\w+)'
-    m=re.search(pattern, item_exp)
+    pattern='(\d+\.*\d*)(\w+)\s+de\s+(\w+)\s+a\s+(\d+\.*\d*)\s+(\w+)\s*,\s*(.+)'
+    m=re.search(pattern, item_exp.strip())
     #usamos datetime.datetime en vez de datetime.date porque pymongo
     #soloi soporta la codificación directa del primer tipo
     item=PriceItem(m.group(3),m.group(2),m.group(1),m.group(4),m.group(5),m.group(6),datetime.datetime.today())
