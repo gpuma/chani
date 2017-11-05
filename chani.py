@@ -51,7 +51,7 @@ def process_item_exp(item_exp):
     1kg de palta a 12 soles en centro
     250g de chia a 3 soles en ceylan"""
 
-    pattern='(\d+\.*\d*)\s*(.+)\s+de\s+(\w+)\s+a\s+(\d+\.*\d*)\s+(\w+)\s+en\s+(.+)'
+    pattern='(\d+\.*\d*)\s*(.+)\s+de\s+(.+)\s+a\s+(\d+\.*\d*)\s+(\w+)\s+en\s+(.+)'
     #re.UNICODE supports accented characters (eg. café)
     m=re.search(pattern, item_exp.strip(), re.UNICODE)
     if m is None:
@@ -60,6 +60,10 @@ def process_item_exp(item_exp):
     #soloi soporta la codificación directa del primer tipo
     item=PriceItem(m.group(3),m.group(2),m.group(1),m.group(4),m.group(5),m.group(6),datetime.datetime.today())
     return item
+
+@get('/favicon.ico')
+def get_favicon():
+    return static_file('favicon.ico',view_folder)
 
 run(host='localhost',port=80, debug=True, reloader=True)
 #run(host='localhost',port=80, debug=True)

@@ -2,7 +2,7 @@
 % rebase('base.tpl', title='Chani - '+title)
 
 <h2>{{get('q',title)}}</h2>
-<table>
+<table class="table table-bordered table-striped table-hover">
   <tr>
     <th>name</th>
     <th>quantity</th>
