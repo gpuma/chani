@@ -5,7 +5,9 @@
 %if len(items) == 0:
   <h3>No se encontraron coincidencias para "{{q}}".</h3>
 %else:
-  <h3>Coincidencias para "{{q}}":</h3>
+  %if defined('q'):
+    <h3>Coincidencias para "{{q}}":</h3>
+  %end
   <table class="table table-bordered table-striped table-hover">
     <tr>
       <th>name</th>
