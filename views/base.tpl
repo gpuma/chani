@@ -17,7 +17,7 @@
 
 
     <footer>
-      <p> Gustavo Puma 2017</p>
+      <p> Gustavo Puma - 2017</p>
     </footer>
     </div>
     <!-- Optional JavaScript -->
