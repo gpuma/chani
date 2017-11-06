@@ -41,8 +41,6 @@ def show_items():
 @get('/items/<q>')
 def search_items(q):
     #for some reasone naming 'q' 'query' throws an error
-    #response.content_type="Content-Type: text/html; charset=UTF-8"
-    #q=request.query.q
     resultado = db.get_items(q)
     return template('items.tpl', {'items' : db.get_items(q), 'title':'Búsqueda','q': q})
 

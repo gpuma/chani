@@ -8,10 +8,8 @@ items=db.items
 
 def get_items(query={}):
     """returns all documents in 'items' collection
-    as a list pf PriceItem objects"""
-    #if type==str:
-    results = items.find({"$text":{"$search": query}}) if type(query)==str else items.find({})
-    #results = items.find({"$text":{"$search": query}}) if query is not None else items.find(query)
+    as a list of PriceItem objects in ascending order of price"""
+    results = items.find({"$text":{"$search": query}}).sort("price",1) if type(query)==str else items.find({})
     return [PriceItem.from_document(doc)  for doc in results]
 
 def insert_item(item):

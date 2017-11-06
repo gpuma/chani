@@ -6,7 +6,7 @@
   <h3>No se encontraron coincidencias para "{{q}}".</h3>
 %else:
   %if defined('q'):
-    <h3>Coincidencias para "{{q}}":</h3>
+    <h3>Coincidencias para "{{q}}" ordenadas por precio:</h3>
   %end
   <table class="table table-bordered table-striped table-hover">
     <tr>
