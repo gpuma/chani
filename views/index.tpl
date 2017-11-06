@@ -8,6 +8,6 @@
   <input type="text" class="form-control" name="newItemExp" autofocus/>
   </div>
   <!--must be outside form-group so it's not sticking to the form"-->
-  <input type="submit" class="btn btn-primary" value="Consultar" />
+  <input type="submit" class="btn btn-success btn-lg" value="Consultar" />
   </div>
 </form>

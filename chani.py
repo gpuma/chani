@@ -8,6 +8,7 @@ import datetime
 from PriceItem import PriceItem
 
 view_folder='views'
+style_folder='styles'
 
 @route('/')
 def home():
@@ -31,6 +32,10 @@ def new_item():
         redirect("/items/"+newItemExp)
     if db.insert_item(item) != 0:
         return "error insertando!"
+    redirect("/items");
+
+@get('/items/')
+def show_items():
     redirect("/items");
 
 @get('/items')
@@ -63,6 +68,10 @@ def process_item_exp(item_exp):
 @get('/favicon.ico')
 def get_favicon():
     return static_file('favicon.ico',view_folder)
+
+@get('/styles/<sheet>')
+def get_style(sheet):
+    return static_file(sheet, style_folder)
 
 run(host='localhost',port=80, debug=True, reloader=True)
 #run(host='localhost',port=80, debug=True)
